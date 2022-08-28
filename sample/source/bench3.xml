@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catch2TestRun name="test 3" catch2-version="3.1.0">
+  <TestCase name="test case A" filename="/path/to/test-A.cpp" line="12">
+    <BenchmarkResults name="benchmark a">
+      <mean value="11000000100" />
+    </BenchmarkResults>
+    <BenchmarkResults name="Very long long benchmark name">
+      <mean value="3613000000321" />
+    </BenchmarkResults>
+  </TestCase>
+</Catch2TestRun>

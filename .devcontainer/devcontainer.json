@@ -1,0 +1,16 @@
+{
+	"name": "catch2-compare",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"runArgs": [
+		"--cap-add=SYS_PTRACE",
+		"--security-opt=seccomp=unconfined",
+		"--network=host",
+		"--privileged"
+	],
+	"extensions": [
+		"golang.go",
+		"streetsidesoftware.code-spell-checker"
+	]
+}

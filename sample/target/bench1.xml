@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catch2TestRun name="test 1" catch2-version="3.1.0">
+  <TestCase name="test case A" filename="/path/to/test-A.cpp" line="42">
+    <BenchmarkResults name="benchmark a">
+      <mean value="4e+06" />
+    </BenchmarkResults>
+    <BenchmarkResults name="benchmark b">
+      <mean value="3e+06" />
+    </BenchmarkResults>
+    <BenchmarkResults name="benchmark c">
+      <mean value="7e+09" />
+    </BenchmarkResults>
+    <BenchmarkResults name="benchmark e">
+      <mean value="10e+03" />
+    </BenchmarkResults>
+    <BenchmarkResults name="benchmark g">
+      <mean value="999" />
+    </BenchmarkResults>
+  </TestCase>
+  <TestCase name="test case B" filename="/path/to/test-B.cpp" line="74">
+    <BenchmarkResults name="benchmark a">
+      <mean value="9e+06" />
+    </BenchmarkResults>
+  </TestCase>
+</Catch2TestRun>
