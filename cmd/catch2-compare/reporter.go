@@ -92,10 +92,10 @@ func (r *DiffReporter) printTestCase(w io.Writer, target catch2.TestCase, source
 		panic(fmt.Sprintf("test case names do not match: %s != %s", target.Name, source.Name))
 	}
 
-	if _, err := fmt.Fprintln(w, "::: "+target.Name); err != nil {
+	if _, err := fmt.Fprintf(w, "@@ %s @@\n", target.Name); err != nil {
 		return err
 	}
-	if _, err := fmt.Fprintf(w, "+++ %s:%d\n", target.Filename, target.Line); err != nil {
+	if _, err := fmt.Fprintf(w, "# %s:%d\n", target.Filename, target.Line); err != nil {
 		return err
 	}
 	if target.Filename != source.Filename || target.Line != source.Line {
