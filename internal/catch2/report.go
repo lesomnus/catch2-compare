@@ -20,7 +20,7 @@ type TestCase struct {
 	BenchmarkResults []BenchmarkResult `xml:"BenchmarkResults"`
 }
 
-type XmlReport struct {
+type Report struct {
 	Name    string `xml:"name,attr"`
 	Version string `xml:"catch2-version,attr"`
 

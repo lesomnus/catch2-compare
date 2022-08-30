@@ -12,7 +12,7 @@ import (
 )
 
 func TestDiffReporter(t *testing.T) {
-	tgt := map[string]catch2.XmlReport{
+	tgt := map[string]catch2.Report{
 		"test 1": {
 			Name: "test 1",
 			TestCases: []catch2.TestCase{
@@ -88,7 +88,7 @@ func TestDiffReporter(t *testing.T) {
 		},
 	}
 
-	src := map[string]catch2.XmlReport{
+	src := map[string]catch2.Report{
 		"test 1": {
 			Name: "test 1",
 			TestCases: []catch2.TestCase{
@@ -177,8 +177,8 @@ func TestDiffReporter(t *testing.T) {
 	}
 
 	expected := `
-::: [test 1] test case A
-+++ /path/to/test-A.cpp:42
+@@ [test 1] test case A @@
+# /path/to/test-A.cpp:42
 + benchmark a                       4ms          2ms     50.00%
 - benchmark b                       3ms          6ms   -100.00%
   benchmark c                        7s            -          -
@@ -187,12 +187,12 @@ func TestDiffReporter(t *testing.T) {
   benchmark f                         -       7h0m0s          -
 ≈ benchmark g                     999ns          1µs     -0.10%
 
-::: [test 1] test case C
-+++ /path/to/test-C.cpp:69
+@@ [test 1] test case C @@
+# /path/to/test-C.cpp:69
   benchmark a                         -         13ns          -
 
-::: [test 3] test case A
-+++ /path/to/test-A.cpp:12
+@@ [test 3] test case A @@
+# /path/to/test-A.cpp:12
   benchmark a                         -          11s          -
   Very long long benchm...            -      1h0m13s          -
 `

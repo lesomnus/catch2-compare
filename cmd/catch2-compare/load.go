@@ -8,7 +8,7 @@ import (
 	"github.com/lesomnus/catch2-compare/internal/catch2"
 )
 
-func load(path string, reports map[string]catch2.XmlReport) error {
+func load(path string, reports map[string]catch2.Report) error {
 	fi, err := os.Stat(path)
 	if err != nil {
 		return err
@@ -39,7 +39,7 @@ func load(path string, reports map[string]catch2.XmlReport) error {
 		return err
 	}
 
-	var report catch2.XmlReport
+	var report catch2.Report
 	if err := xml.Unmarshal(data, &report); err != nil {
 		return err
 	}

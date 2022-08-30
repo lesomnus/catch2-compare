@@ -11,12 +11,12 @@ import (
 )
 
 type Reporter interface {
-	Report(w io.Writer, target map[string]catch2.XmlReport, source map[string]catch2.XmlReport) error
+	Report(w io.Writer, target map[string]catch2.Report, source map[string]catch2.Report) error
 }
 
 type DiffReporter struct{}
 
-func (r *DiffReporter) Report(w io.Writer, target map[string]catch2.XmlReport, source map[string]catch2.XmlReport) error {
+func (r *DiffReporter) Report(w io.Writer, target map[string]catch2.Report, source map[string]catch2.Report) error {
 	names := make([]string, 0, len(source))
 	for name := range source {
 		names = append(names, name)
@@ -29,7 +29,7 @@ func (r *DiffReporter) Report(w io.Writer, target map[string]catch2.XmlReport, s
 		srcReport := source[name]
 		tgtReport, ok := target[name]
 		if !ok {
-			tgtReport = catch2.XmlReport{
+			tgtReport = catch2.Report{
 				Name:      name,
 				TestCases: make([]catch2.TestCase, 0),
 			}
@@ -92,10 +92,10 @@ func (r *DiffReporter) printTestCase(w io.Writer, target catch2.TestCase, source
 		panic(fmt.Sprintf("test case names do not match: %s != %s", target.Name, source.Name))
 	}
 
-	if _, err := fmt.Fprintln(w, "::: "+target.Name); err != nil {
+	if _, err := fmt.Fprintf(w, "@@ %s @@\n", target.Name); err != nil {
 		return err
 	}
-	if _, err := fmt.Fprintf(w, "+++ %s:%d\n", target.Filename, target.Line); err != nil {
+	if _, err := fmt.Fprintf(w, "# %s:%d\n", target.Filename, target.Line); err != nil {
 		return err
 	}
 	if target.Filename != source.Filename || target.Line != source.Line {
