@@ -11,12 +11,12 @@ import (
 )
 
 type Reporter interface {
-	Report(w io.Writer, target map[string]catch2.XmlReport, source map[string]catch2.XmlReport) error
+	Report(w io.Writer, target map[string]catch2.Report, source map[string]catch2.Report) error
 }
 
 type DiffReporter struct{}
 
-func (r *DiffReporter) Report(w io.Writer, target map[string]catch2.XmlReport, source map[string]catch2.XmlReport) error {
+func (r *DiffReporter) Report(w io.Writer, target map[string]catch2.Report, source map[string]catch2.Report) error {
 	names := make([]string, 0, len(source))
 	for name := range source {
 		names = append(names, name)
@@ -29,7 +29,7 @@ func (r *DiffReporter) Report(w io.Writer, target map[string]catch2.XmlReport, s
 		srcReport := source[name]
 		tgtReport, ok := target[name]
 		if !ok {
-			tgtReport = catch2.XmlReport{
+			tgtReport = catch2.Report{
 				Name:      name,
 				TestCases: make([]catch2.TestCase, 0),
 			}

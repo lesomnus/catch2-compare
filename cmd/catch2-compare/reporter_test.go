@@ -12,7 +12,7 @@ import (
 )
 
 func TestDiffReporter(t *testing.T) {
-	tgt := map[string]catch2.XmlReport{
+	tgt := map[string]catch2.Report{
 		"test 1": {
 			Name: "test 1",
 			TestCases: []catch2.TestCase{
@@ -88,7 +88,7 @@ func TestDiffReporter(t *testing.T) {
 		},
 	}
 
-	src := map[string]catch2.XmlReport{
+	src := map[string]catch2.Report{
 		"test 1": {
 			Name: "test 1",
 			TestCases: []catch2.TestCase{

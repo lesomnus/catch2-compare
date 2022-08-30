@@ -34,7 +34,7 @@ const data = `
 
 func TestUnmarshal(t *testing.T) {
 	require := require.New(t)
-	expected := catch2.XmlReport{
+	expected := catch2.Report{
 		Name:    "test_build",
 		Version: "3.1.0",
 		TestCases: []catch2.TestCase{{
@@ -64,7 +64,7 @@ func TestUnmarshal(t *testing.T) {
 		}},
 	}
 
-	var actual catch2.XmlReport
+	var actual catch2.Report
 
 	err := xml.Unmarshal([]byte(data), &actual)
 	require.NoError(err)
