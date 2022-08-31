@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/lesomnus/catch2-compare/internal/catch2"
 )
@@ -21,6 +22,7 @@ func verifyArgs(opts Options) error {
 			return fmt.Errorf("failed to resolve absolute path from %s: %w", opts.WorkingDirectory, err)
 		} else {
 			opts.WorkingDirectory = wd
+			fmt.Printf("wd: %v\n", wd)
 		}
 	}
 
@@ -40,7 +42,7 @@ func main() {
 		WorkingDirectory: "",
 	}
 
-	flag.StringVar(&opts.WorkingDirectory, "working-dir", "", "Display the file path relative to this path if possible")
+	flag.StringVar(&opts.WorkingDirectory, "working-dir", "", "Display the file path relative to this path")
 
 	flag.Usage = usage
 	flag.Parse()
@@ -71,6 +73,8 @@ func main() {
 			for _, report := range reports {
 				for i, tc := range report.TestCases {
 					if rel, err := filepath.Rel(opts.WorkingDirectory, tc.Filename); err != nil {
+						continue
+					} else if strings.HasPrefix(rel, "..") {
 						continue
 					} else {
 						report.TestCases[i].Filename = rel
