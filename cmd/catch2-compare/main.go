@@ -16,14 +16,6 @@ func usage() {
 	flag.PrintDefaults()
 }
 
-func verifyArgs() error {
-	if flag.NArg() != 2 {
-		return fmt.Errorf("expected 2 arguments but it was %d", flag.NArg())
-	}
-
-	return nil
-}
-
 type Options struct {
 	WorkingDirectory string
 }
