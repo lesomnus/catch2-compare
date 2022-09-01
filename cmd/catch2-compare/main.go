@@ -16,16 +16,7 @@ func usage() {
 	flag.PrintDefaults()
 }
 
-func verifyArgs(opts Options) error {
-	if opts.WorkingDirectory != "" {
-		if wd, err := filepath.Abs(opts.WorkingDirectory); err != nil {
-			return fmt.Errorf("failed to resolve absolute path from %s: %w", opts.WorkingDirectory, err)
-		} else {
-			opts.WorkingDirectory = wd
-			fmt.Printf("wd: %v\n", wd)
-		}
-	}
-
+func verifyArgs() error {
 	if flag.NArg() != 2 {
 		return fmt.Errorf("expected 2 arguments but it was %d", flag.NArg())
 	}
@@ -35,6 +26,18 @@ func verifyArgs(opts Options) error {
 
 type Options struct {
 	WorkingDirectory string
+}
+
+func (o *Options) Evaluate() error {
+	if o.WorkingDirectory != "" {
+		if wd, err := filepath.Abs(o.WorkingDirectory); err != nil {
+			return fmt.Errorf("failed to resolve absolute path from %s: %w", o.WorkingDirectory, err)
+		} else {
+			o.WorkingDirectory = wd
+		}
+	}
+
+	return nil
 }
 
 func main() {
@@ -47,11 +50,11 @@ func main() {
 	flag.Usage = usage
 	flag.Parse()
 
-	if err := verifyArgs(opts); err != nil {
-		fmt.Fprintln(os.Stderr, err.Error())
-
+	if flag.NArg() != 2 {
+		fmt.Fprintf(os.Stderr, "expected 2 arguments but it was %d", flag.NArg())
 		flag.Usage()
 		os.Exit(1)
+		return
 	}
 
 	tgt_path := flag.Arg(0)
